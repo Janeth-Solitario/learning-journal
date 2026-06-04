@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Learning Journal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root { --navy:#023047; --teal:#219EBC; --teal-light:#8ECAE6; --cream:#F8F4EF; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family:'Inter',system-ui,sans-serif; font-size:17px; line-height:1.7; color:var(--navy); background:var(--cream); }
+
+    /* Header */
+    .site-header { background:var(--navy); padding:0.85rem 0; border-bottom:3px solid var(--teal); }
+    .site-header .wrapper { max-width:800px; margin:0 auto; padding:0 1.5rem; display:flex; align-items:center; justify-content:space-between; }
+    .site-title { font-family:'Source Serif 4',Georgia,serif; font-size:1.35rem; font-weight:600; color:#fff; text-decoration:none; }
+    .site-author { font-family:'Source Serif 4',Georgia,serif; font-size:0.95rem; color:var(--teal-light); font-style:italic; letter-spacing:0.02em; }
+
+    /* Layout */
+    .page-content { padding:2.5rem 0; }
+    .wrapper { max-width:800px; margin:0 auto; padding:0 1.5rem; }
+    .page-heading { font-family:'Source Serif 4',Georgia,serif; font-size:2rem; color:var(--navy); margin-bottom:0.5rem; }
+    .home > p { color:#4a6470; font-size:0.95rem; margin-bottom:1.5rem; max-width:560px; }
+
+    /* Write button */
+    .write-btn {
+      display:inline-flex; align-items:center; gap:0.4em;
+      background:var(--teal); color:#fff;
+      font-family:'Inter',sans-serif; font-size:0.88rem; font-weight:500;
+      padding:0.5em 1.2em; border-radius:6px; text-decoration:none;
+      margin-bottom:2.5rem; transition:background 0.15s, transform 0.1s;
+    }
+    .write-btn:hover { background:var(--navy); transform:translateY(-1px); }
+
+    /* Post list */
+    .post-list { list-style:none; }
+    .journal-entry { padding:1.5rem 0; border-bottom:1px solid var(--teal-light); }
+    .journal-entry:last-child { border-bottom:none; }
+    .post-meta { font-size:0.78rem; color:var(--teal); text-transform:uppercase; letter-spacing:0.07em; }
+    .post-title-link { display:block; font-family:'Source Serif 4',Georgia,serif; font-size:1.3rem; color:var(--navy); text-decoration:none; margin:0.25rem 0 0.4rem; }
+    .post-title-link:hover { color:var(--teal); text-decoration:underline; }
+    .post-preview { font-style:italic; font-size:0.95rem; color:#3a5260; margin-bottom:0.55rem; }
+    .word-chip { display:inline-block; background:var(--teal); color:#fff; font-size:0.7rem; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; padding:0.15em 0.65em; border-radius:999px; }
+
+    /* Password modal */
+    .pw-overlay { display:none; position:fixed; inset:0; background:rgba(2,48,71,0.55); z-index:200; align-items:center; justify-content:center; }
+    .pw-overlay.open { display:flex; }
+    .pw-box { background:var(--cream); border-radius:10px; padding:2rem 2rem 1.5rem; width:320px; box-shadow:0 8px 32px rgba(2,48,71,0.2); }
+    .pw-box h2 { font-family:'Source Serif 4',Georgia,serif; font-size:1.2rem; color:var(--navy); margin-bottom:0.3rem; }
+    .pw-box p { font-size:0.83rem; color:#6a8090; margin-bottom:1.2rem; }
+    .pw-input { width:100%; font-family:'Inter',sans-serif; font-size:1rem; color:var(--navy); background:#fff; border:1.5px solid var(--teal-light); border-radius:6px; padding:0.5em 0.75em; outline:none; letter-spacing:0.12em; }
+    .pw-input:focus { border-color:var(--teal); }
+    .pw-error { font-size:0.78rem; color:#c0392b; margin-top:0.4rem; min-height:1.1em; }
+    .pw-actions { display:flex; gap:0.75rem; margin-top:1.2rem; }
+    .pw-go { flex:1; background:var(--teal); color:#fff; font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:500; padding:0.55em 0; border:none; border-radius:6px; cursor:pointer; transition:background 0.15s; }
+    .pw-go:hover { background:var(--navy); }
+    .pw-cancel { background:none; border:none; font-family:'Inter',sans-serif; font-size:0.85rem; color:#6a8090; cursor:pointer; padding:0.55em 0.5em; }
+    .pw-cancel:hover { color:var(--navy); }
+
+    /* Footer */
+    .site-footer { border-top:1px solid var(--teal-light); padding:1.5rem 0; font-size:0.8rem; color:#6a8090; text-align:center; }
+
+    /* Pixel cat */
+    .pixel-cat { position:fixed; bottom:1.5rem; right:1.5rem; cursor:pointer; image-rendering:pixelated; z-index:100; transition:transform 0.15s; }
+    .pixel-cat:hover { transform:scale(1.15); }
+    .pixel-cat.bounce { animation:catBounce 0.45s ease; }
+    @keyframes catBounce {
+      0%   { transform:scale(1)    translateY(0); }
+      30%  { transform:scale(1.2)  translateY(-6px); }
+      65%  { transform:scale(0.95) translateY(0); }
+      100% { transform:scale(1)    translateY(0); }
+    }
+    .cat-tooltip { position:absolute; bottom:calc(100% + 6px); right:0; background:var(--navy); color:#fff; font-family:'Inter',sans-serif; font-size:0.72rem; padding:0.25em 0.6em; border-radius:4px; white-space:nowrap; opacity:0; pointer-events:none; transition:opacity 0.2s; }
+    .pixel-cat:hover .cat-tooltip { opacity:1; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="/">My Learning Journal</a>
+    <span class="site-author">Janeth</span>
+  </div>
+</header>
+
+<main class="page-content">
+  <div class="wrapper">
+    <div class="home">
+      <h1 class="page-heading">Learning Journal</h1>
+      <p>A running log of what I'm figuring out, one day at a time.</p>
+
+      <button class="write-btn" id="write-btn">✏&nbsp; Write Today's Entry</button>
+
+      <ul class="post-list" id="post-list">
+      </ul>
+    </div>
+  </div>
+</main>
+
+<!-- Password modal -->
+<div class="pw-overlay" id="pw-overlay">
+  <div class="pw-box">
+    <h2>Enter password</h2>
+    <p>This journal is Janeth's — only she can add entries.</p>
+    <input class="pw-input" id="pw-input" type="password" placeholder="••••••" maxlength="20" />
+    <div class="pw-error" id="pw-error"></div>
+    <div class="pw-actions">
+      <button class="pw-go" id="pw-go">Enter</button>
+      <button class="pw-cancel" id="pw-cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <p>My Learning Journal &mdash; powered by Jekyll &amp; minima</p>
+</footer>
+
+<!-- Pixel cat -->
+<div class="pixel-cat" id="cat" title="">
+  <div class="cat-tooltip" id="cat-tip">meow ♡</div>
+  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="56" shape-rendering="crispEdges">
+    <!-- ear tips -->
+    <rect x="8"  y="0"  width="8" height="4" fill="#AAAAAA"/>
+    <rect x="32" y="0"  width="8" height="4" fill="#AAAAAA"/>
+    <!-- ear bases -->
+    <rect x="4"  y="4"  width="16" height="4" fill="#AAAAAA"/>
+    <rect x="28" y="4"  width="16" height="4" fill="#AAAAAA"/>
+    <!-- head -->
+    <rect x="4"  y="8"  width="40" height="8" fill="#AAAAAA"/>
+    <!-- eyes row -->
+    <rect x="4"  y="16" width="4"  height="4" fill="#AAAAAA"/>
+    <rect x="8"  y="16" width="4"  height="4" fill="#333333"/>
+    <rect x="12" y="16" width="24" height="4" fill="#AAAAAA"/>
+    <rect x="32" y="16" width="4"  height="4" fill="#333333"/>
+    <rect x="36" y="16" width="8"  height="4" fill="#AAAAAA"/>
+    <!-- cheeks -->
+    <rect x="4"  y="20" width="40" height="4" fill="#AAAAAA"/>
+    <!-- nose row -->
+    <rect x="4"  y="24" width="16" height="4" fill="#AAAAAA"/>
+    <rect x="20" y="24" width="4"  height="4" fill="#FFAAAA"/>
+    <rect x="24" y="24" width="20" height="4" fill="#AAAAAA"/>
+    <!-- chin -->
+    <rect x="4"  y="28" width="40" height="4" fill="#AAAAAA"/>
+    <!-- neck -->
+    <rect x="8"  y="32" width="32" height="4" fill="#AAAAAA"/>
+    <!-- body -->
+    <rect x="4"  y="36" width="40" height="8" fill="#AAAAAA"/>
+    <!-- lower body -->
+    <rect x="0"  y="44" width="48" height="4" fill="#AAAAAA"/>
+    <!-- paws -->
+    <rect x="0"  y="48" width="8"  height="8" fill="#AAAAAA"/>
+    <rect x="16" y="48" width="16" height="8" fill="#AAAAAA"/>
+    <rect x="40" y="48" width="8"  height="8" fill="#AAAAAA"/>
+  </svg>
+</div>
+
+<script>
+  // ── Load localStorage entries and prepend to post list ─────────────
+  const list = document.getElementById('post-list');
+
+  function fmtDate(iso) {
+    const [y, m, d] = iso.split('-').map(Number);
+    return new Date(y, m - 1, d).toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' });
+  }
+
+  function renderEntries() {
+    const stored = JSON.parse(localStorage.getItem('journal_entries') || '[]');
+    // Remove any previously injected LS items
+    document.querySelectorAll('.ls-entry').forEach(el => el.remove());
+
+    // Sort newest first, then inject before static entry
+    const sorted = [...stored].sort((a, b) => b.date.localeCompare(a.date));
+    const staticItem = list.querySelector('li');
+
+    sorted.forEach((entry, i) => {
+      const li = document.createElement('li');
+      li.className = 'journal-entry ls-entry';
+      li.innerHTML = `
+        <time class="post-meta" datetime="${entry.date}">${fmtDate(entry.date)}</time>
+        <a class="post-title-link" href="/view.html#${i}">${entry.title}</a>
+        ${entry.one_thing ? `<p class="post-preview">${entry.one_thing}</p>` : ''}
+        ${entry.word ? `<span class="word-chip">${entry.word}</span>` : ''}
+      `;
+      list.insertBefore(li, staticItem);
+    });
+  }
+
+  renderEntries();
+
+  // ── Password gate ──────────────────────────────────────────────────
+  const overlay = document.getElementById('pw-overlay');
+  const pwInput = document.getElementById('pw-input');
+  const pwError = document.getElementById('pw-error');
+
+  document.getElementById('write-btn').addEventListener('click', () => {
+    overlay.classList.add('open');
+    pwInput.value = '';
+    pwError.textContent = '';
+    setTimeout(() => pwInput.focus(), 50);
+  });
+
+  function tryPassword() {
+    if (pwInput.value === '701310') {
+      overlay.classList.remove('open');
+      window.location.href = '/new.html';
+    } else {
+      pwError.textContent = 'Incorrect password.';
+      pwInput.value = '';
+      pwInput.focus();
+    }
+  }
+
+  document.getElementById('pw-go').addEventListener('click', tryPassword);
+  pwInput.addEventListener('keydown', e => { if (e.key === 'Enter') tryPassword(); });
+  document.getElementById('pw-cancel').addEventListener('click', () => overlay.classList.remove('open'));
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
+
+  // ── Pixel cat interaction ───────────────────────────────────────────
+  const cat = document.getElementById('cat');
+  const tip = document.getElementById('cat-tip');
+  const meows = ['meow ♡', 'purr...', '(=^･ω･^=)', 'nya~', '♡ ♡ ♡'];
+  let meowIdx = 0;
+
+  cat.addEventListener('click', () => {
+    meowIdx = (meowIdx + 1) % meows.length;
+    tip.textContent = meows[meowIdx];
+    cat.classList.remove('bounce');
+    void cat.offsetWidth; // reflow to restart animation
+    cat.classList.add('bounce');
+  });
+  cat.addEventListener('animationend', () => cat.classList.remove('bounce'));
+</script>
+
+</body>
+</html>

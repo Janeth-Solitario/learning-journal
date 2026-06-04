@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Entry – My Learning Journal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root { --navy:#023047; --teal:#219EBC; --teal-light:#8ECAE6; --cream:#F8F4EF; }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Inter',system-ui,sans-serif; font-size:17px; line-height:1.7; color:var(--navy); background:var(--cream); }
+    .site-header { background:var(--navy); padding:0.85rem 0; border-bottom:3px solid var(--teal); }
+    .site-header .wrapper { max-width:800px; margin:0 auto; padding:0 1.5rem; display:flex; align-items:center; justify-content:space-between; }
+    .site-title { font-family:'Source Serif 4',Georgia,serif; font-size:1.35rem; font-weight:600; color:#fff; text-decoration:none; }
+    .site-author { font-family:'Source Serif 4',Georgia,serif; font-size:0.95rem; color:var(--teal-light); font-style:italic; }
+    .page-content { padding:2.5rem 0; }
+    .wrapper { max-width:800px; margin:0 auto; padding:0 1.5rem; }
+    .back-link { display:inline-block; font-size:0.82rem; color:var(--teal); text-decoration:none; margin-bottom:1rem; }
+    .back-link:hover { text-decoration:underline; }
+    .post-title { font-family:'Source Serif 4',Georgia,serif; font-size:2rem; line-height:1.2; color:var(--navy); margin-bottom:0.4rem; }
+    .post-date { font-size:0.8rem; color:var(--teal); text-transform:uppercase; letter-spacing:0.07em; }
+    .word-chip { display:inline-block; background:var(--teal); color:#fff; font-size:0.7rem; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; padding:0.15em 0.65em; border-radius:999px; margin-left:0.6rem; vertical-align:middle; }
+    .post-header { margin-bottom:2rem; }
+    .post-content h2 { font-family:'Source Serif 4',Georgia,serif; font-size:1.2rem; color:var(--navy); margin-top:2.2rem; margin-bottom:0.6rem; padding-bottom:0.3rem; border-bottom:2px solid var(--teal-light); }
+    .post-content p { margin-bottom:1rem; white-space:pre-wrap; }
+    .post-content hr { border:none; border-top:1px solid var(--teal-light); margin:2rem 0; }
+    .not-found { font-style:italic; color:#6a8090; margin-top:2rem; }
+    .site-footer { border-top:1px solid var(--teal-light); padding:1.5rem 0; font-size:0.8rem; color:#6a8090; text-align:center; margin-top:3rem; }
+    .pixel-cat { position:fixed; bottom:1.5rem; right:1.5rem; cursor:pointer; image-rendering:pixelated; z-index:100; transition:transform 0.15s; }
+    .pixel-cat:hover { transform:scale(1.15); }
+    .pixel-cat.bounce { animation:catBounce 0.45s ease; }
+    @keyframes catBounce { 0%{transform:scale(1) translateY(0)} 30%{transform:scale(1.2) translateY(-6px)} 65%{transform:scale(0.95) translateY(0)} 100%{transform:scale(1) translateY(0)} }
+    .cat-tooltip { position:absolute; bottom:calc(100% + 6px); right:0; background:var(--navy); color:#fff; font-size:0.72rem; padding:0.25em 0.6em; border-radius:4px; white-space:nowrap; opacity:0; pointer-events:none; transition:opacity 0.2s; }
+    .pixel-cat:hover .cat-tooltip { opacity:1; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="/">My Learning Journal</a>
+    <span class="site-author">Janeth</span>
+  </div>
+</header>
+
+<main class="page-content">
+  <div class="wrapper">
+    <a class="back-link" href="/">← All entries</a>
+    <article id="entry-content">
+      <p class="not-found">Loading entry…</p>
+    </article>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>My Learning Journal &mdash; powered by Jekyll &amp; minima</p>
+</footer>
+
+<div class="pixel-cat" id="cat">
+  <div class="cat-tooltip" id="cat-tip">meow ♡</div>
+  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="56" shape-rendering="crispEdges">
+    <rect x="8"  y="0"  width="8"  height="4" fill="#AAAAAA"/>
+    <rect x="32" y="0"  width="8"  height="4" fill="#AAAAAA"/>
+    <rect x="4"  y="4"  width="16" height="4" fill="#AAAAAA"/>
+    <rect x="28" y="4"  width="16" height="4" fill="#AAAAAA"/>
+    <rect x="4"  y="8"  width="40" height="8" fill="#AAAAAA"/>
+    <rect x="4"  y="16" width="4"  height="4" fill="#AAAAAA"/>
+    <rect x="8"  y="16" width="4"  height="4" fill="#333333"/>
+    <rect x="12" y="16" width="24" height="4" fill="#AAAAAA"/>
+    <rect x="32" y="16" width="4"  height="4" fill="#333333"/>
+    <rect x="36" y="16" width="8"  height="4" fill="#AAAAAA"/>
+    <rect x="4"  y="20" width="40" height="4" fill="#AAAAAA"/>
+    <rect x="4"  y="24" width="16" height="4" fill="#AAAAAA"/>
+    <rect x="20" y="24" width="4"  height="4" fill="#FFAAAA"/>
+    <rect x="24" y="24" width="20" height="4" fill="#AAAAAA"/>
+    <rect x="4"  y="28" width="40" height="4" fill="#AAAAAA"/>
+    <rect x="8"  y="32" width="32" height="4" fill="#AAAAAA"/>
+    <rect x="4"  y="36" width="40" height="8" fill="#AAAAAA"/>
+    <rect x="0"  y="44" width="48" height="4" fill="#AAAAAA"/>
+    <rect x="0"  y="48" width="8"  height="8" fill="#AAAAAA"/>
+    <rect x="16" y="48" width="16" height="8" fill="#AAAAAA"/>
+    <rect x="40" y="48" width="8"  height="8" fill="#AAAAAA"/>
+  </svg>
+</div>
+
+<script>
+  function fmtDate(iso) {
+    const [y,m,d] = iso.split('-').map(Number);
+    return new Date(y,m-1,d).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  }
+  function esc(s) {
+    return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  const id = parseInt(location.hash.replace('#', ''), 10);
+  const entries = JSON.parse(localStorage.getItem('journal_entries') || '[]');
+  const entry = entries[id];
+  const container = document.getElementById('entry-content');
+
+  if (!entry) {
+    container.innerHTML = '<p class="not-found">Entry not found. It may have been cleared from your browser.</p>';
+  } else {
+    document.title = `${entry.title} – My Learning Journal`;
+    const s = entry.sections || {};
+    container.innerHTML = `
+      <header class="post-header">
+        <h1 class="post-title">${esc(entry.title)}</h1>
+        <span class="post-date">${fmtDate(entry.date)}</span>
+        ${entry.word ? `<span class="word-chip">${esc(entry.word)}</span>` : ''}
+      </header>
+      <div class="post-content">
+        ${s.learned   ? `<h2>What I Learned</h2><p>${esc(s.learned)}</p><hr/>` : ''}
+        ${s.unstuck   ? `<h2>How I Got Unstuck</h2><p>${esc(s.unstuck)}</p><hr/>` : ''}
+        ${s.question  ? `<h2>Question I'm Still Sitting With</h2><p>${esc(s.question)}</p><hr/>` : ''}
+        ${s.word_full ? `<h2>Word of the Day</h2><p><strong>${esc(entry.word)}</strong> — ${esc(s.word_full)}</p>` : ''}
+      </div>
+    `;
+  }
+
+  const cat = document.getElementById('cat');
+  const tip = document.getElementById('cat-tip');
+  const meows = ['meow ♡','purr...','(=^･ω･^=)','nya~','♡ ♡ ♡'];
+  let idx = 0;
+  cat.addEventListener('click', () => {
+    idx = (idx+1)%meows.length; tip.textContent = meows[idx];
+    cat.classList.remove('bounce'); void cat.offsetWidth; cat.classList.add('bounce');
+  });
+  cat.addEventListener('animationend', () => cat.classList.remove('bounce'));
+</script>
+</body>
+</html>

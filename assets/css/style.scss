@@ -1,0 +1,117 @@
+---
+---
+
+// Pull in Google Fonts before minima sets anything
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500&display=swap');
+
+// ── Brand tokens ────────────────────────────────────────────────
+$navy:      #023047;
+$teal:      #219EBC;
+$teal-light:#8ECAE6;
+$cream:     #F8F4EF;
+
+// ── Override minima Sass variables before the import ────────────
+$base-font-family: 'Inter', system-ui, sans-serif;
+$base-font-size:   17px;
+$base-line-height: 1.7;
+$text-color:       $navy;
+$background-color: $cream;
+$brand-color:      $teal;
+$link-base-color:  $teal;
+$link-visited-color: darken($teal, 12%);
+$link-hover-color: $navy;
+
+$header-background-color: $navy;
+$header-text-color:       #ffffff;
+
+// ── Import minima (must come after variable overrides) ──────────
+@import "minima";
+
+// ── Typography ──────────────────────────────────────────────────
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  color: $navy;
+  font-weight: 600;
+}
+
+.site-title,
+.site-title:visited {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+}
+
+// ── Home page post list ─────────────────────────────────────────
+.post-list {
+  list-style: none;
+  margin-left: 0;
+
+  .journal-entry {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid $teal-light;
+
+    &:last-child { border-bottom: none; }
+  }
+}
+
+.post-meta {
+  font-size: 0.8rem;
+  color: $teal;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: 'Inter', sans-serif;
+}
+
+.post-title a {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.3rem;
+  color: $navy;
+  text-decoration: none;
+
+  &:hover { color: $teal; text-decoration: underline; }
+}
+
+.post-preview {
+  margin: 0.4rem 0 0.5rem;
+  color: lighten($navy, 20%);
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+.word-chip {
+  display: inline-block;
+  background: $teal;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.15em 0.6em;
+  border-radius: 999px;
+}
+
+// ── Post page ───────────────────────────────────────────────────
+.post-header .post-title {
+  font-size: 2rem;
+  line-height: 1.25;
+}
+
+.post-content {
+  h2 {
+    font-size: 1.25rem;
+    margin-top: 2.5rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid $teal-light;
+  }
+
+  blockquote {
+    border-left: 3px solid $teal;
+    color: lighten($navy, 30%);
+    font-size: 0.9rem;
+    background: lighten($teal-light, 18%);
+    padding: 0.6rem 1rem;
+    border-radius: 0 4px 4px 0;
+  }
+}

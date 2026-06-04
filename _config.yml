@@ -1,0 +1,31 @@
+title: My Learning Journal
+author: Janeth
+email: janeth.solitario@4js.com
+description: >-
+  A daily log of discoveries, blockers conquered, open questions,
+  and one new word — written during my internship.
+
+baseurl: ""
+url: ""
+
+theme: minima
+minima:
+  skin: classic
+
+# Syntax highlighting (built-in, no plugin needed)
+highlighter: rouge
+
+# Markdown engine
+markdown: kramdown
+kramdown:
+  input: GFM
+
+# Permalink style: /2026/06/04/day-1-of-internship/
+permalink: /:year/:month/:day/:title/
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor/

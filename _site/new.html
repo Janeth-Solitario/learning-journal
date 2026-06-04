@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>New Entry – My Learning Journal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root { --navy:#023047; --teal:#219EBC; --teal-light:#8ECAE6; --cream:#F8F4EF; }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Inter',system-ui,sans-serif; font-size:17px; line-height:1.7; color:var(--navy); background:var(--cream); }
+
+    .site-header { background:var(--navy); padding:0.85rem 0; border-bottom:3px solid var(--teal); }
+    .site-header .wrapper { max-width:800px; margin:0 auto; padding:0 1.5rem; display:flex; align-items:center; justify-content:space-between; }
+    .site-title { font-family:'Source Serif 4',Georgia,serif; font-size:1.35rem; font-weight:600; color:#fff; text-decoration:none; }
+    .site-author { font-family:'Source Serif 4',Georgia,serif; font-size:0.95rem; color:var(--teal-light); font-style:italic; }
+
+    .page-content { padding:2.5rem 0 4rem; }
+    .wrapper { max-width:800px; margin:0 auto; padding:0 1.5rem; }
+
+    .back-link { display:inline-block; font-size:0.82rem; color:var(--teal); text-decoration:none; margin-bottom:1.2rem; }
+    .back-link:hover { text-decoration:underline; }
+
+    h1 { font-family:'Source Serif 4',Georgia,serif; font-size:2rem; color:var(--navy); margin-bottom:0.25rem; }
+    .subtitle { font-size:0.88rem; color:#6a8090; margin-bottom:2rem; }
+
+    /* Form */
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.5rem; }
+    @media (max-width:540px) { .form-row { grid-template-columns:1fr; } }
+
+    label { display:block; font-size:0.8rem; font-weight:500; text-transform:uppercase; letter-spacing:0.06em; color:var(--teal); margin-bottom:0.3rem; }
+    input[type="text"], input[type="date"], textarea {
+      width:100%; font-family:'Inter',sans-serif; font-size:0.95rem;
+      color:var(--navy); background:#fff; border:1.5px solid var(--teal-light);
+      border-radius:6px; padding:0.55em 0.8em; outline:none;
+      transition:border-color 0.15s;
+    }
+    input[type="text"]:focus, input[type="date"]:focus, textarea:focus { border-color:var(--teal); }
+    textarea { resize:vertical; min-height:120px; line-height:1.6; }
+    .field { margin-bottom:1.5rem; }
+
+    .section-heading {
+      font-family:'Source Serif 4',Georgia,serif;
+      font-size:1.1rem; color:var(--navy);
+      margin:2rem 0 1rem;
+      padding-bottom:0.3rem;
+      border-bottom:2px solid var(--teal-light);
+    }
+
+    .actions { display:flex; gap:1rem; align-items:center; margin-top:2.5rem; }
+    .save-btn {
+      background:var(--teal); color:#fff;
+      font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:500;
+      padding:0.6em 1.6em; border:none; border-radius:6px; cursor:pointer;
+      transition:background 0.15s;
+    }
+    .save-btn:hover { background:var(--navy); }
+    .cancel-link { font-size:0.85rem; color:#6a8090; text-decoration:none; }
+    .cancel-link:hover { color:var(--teal); }
+
+    /* Pixel cat */
+    .pixel-cat { position:fixed; bottom:1.5rem; right:1.5rem; cursor:pointer; image-rendering:pixelated; z-index:100; transition:transform 0.15s; }
+    .pixel-cat:hover { transform:scale(1.15); }
+    .pixel-cat.bounce { animation:catBounce 0.45s ease; }
+    @keyframes catBounce { 0%{transform:scale(1) translateY(0)} 30%{transform:scale(1.2) translateY(-6px)} 65%{transform:scale(0.95) translateY(0)} 100%{transform:scale(1) translateY(0)} }
+    .cat-tooltip { position:absolute; bottom:calc(100% + 6px); right:0; background:var(--navy); color:#fff; font-size:0.72rem; padding:0.25em 0.6em; border-radius:4px; white-space:nowrap; opacity:0; pointer-events:none; transition:opacity 0.2s; }
+    .pixel-cat:hover .cat-tooltip { opacity:1; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="/">My Learning Journal</a>
+    <span class="site-author">Janeth</span>
+  </div>
+</header>
+
+<main class="page-content">
+  <div class="wrapper">
+    <a class="back-link" href="/">← All entries</a>
+    <h1>New Entry</h1>
+    <p class="subtitle">Fill in what you can. Nothing needs to be polished.</p>
+
+    <form id="entry-form" autocomplete="off">
+
+      <div class="form-row">
+        <div class="field">
+          <label for="title">Title</label>
+          <input type="text" id="title" placeholder="Day 2 of Internship" required />
+        </div>
+        <div class="field">
+          <label for="date">Date</label>
+          <input type="date" id="date" required />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="one_thing">One-line summary <span style="font-weight:400;text-transform:none;letter-spacing:0">(shown on home page)</span></label>
+        <input type="text" id="one_thing" placeholder="The one thing I understood today was…" />
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label for="word">Word of the day</label>
+          <input type="text" id="word" placeholder="e.g. focused" maxlength="20" />
+        </div>
+      </div>
+
+      <h2 class="section-heading">What I Learned</h2>
+      <div class="field">
+        <textarea id="learned" placeholder="One concrete thing you understood today — a concept, a command, a pattern…"></textarea>
+      </div>
+
+      <h2 class="section-heading">How I Got Unstuck</h2>
+      <div class="field">
+        <textarea id="unstuck" placeholder="A blocker you hit and how you resolved it. Even 'I Googled X and found Y' counts…"></textarea>
+      </div>
+
+      <h2 class="section-heading">Question I'm Still Sitting With</h2>
+      <div class="field">
+        <textarea id="question" placeholder="A genuine open question from today. You don't need an answer yet…"></textarea>
+      </div>
+
+      <h2 class="section-heading">Word of the Day (full thought)</h2>
+      <div class="field">
+        <textarea id="word_full" placeholder="One sentence about why you chose that word…"></textarea>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="save-btn">Save Entry</button>
+        <a class="cancel-link" href="/">Cancel</a>
+      </div>
+
+    </form>
+  </div>
+</main>
+
+<!-- Pixel cat -->
+<div class="pixel-cat" id="cat">
+  <div class="cat-tooltip" id="cat-tip">meow ♡</div>
+  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="56" shape-rendering="crispEdges">
+    <rect x="8"  y="0"  width="8"  height="4" fill="#AAAAAA"/>
+    <rect x="32" y="0"  width="8"  height="4" fill="#AAAAAA"/>
+    <rect x="4"  y="4"  width="16" height="4" fill="#AAAAAA"/>
+    <rect x="28" y="4"  width="16" height="4" fill="#AAAAAA"/>
+    <rect x="4"  y="8"  width="40" height="8" fill="#AAAAAA"/>
+    <rect x="4"  y="16" width="4"  height="4" fill="#AAAAAA"/>
+    <rect x="8"  y="16" width="4"  height="4" fill="#333333"/>
+    <rect x="12" y="16" width="24" height="4" fill="#AAAAAA"/>
+    <rect x="32" y="16" width="4"  height="4" fill="#333333"/>
+    <rect x="36" y="16" width="8"  height="4" fill="#AAAAAA"/>
+    <rect x="4"  y="20" width="40" height="4" fill="#AAAAAA"/>
+    <rect x="4"  y="24" width="16" height="4" fill="#AAAAAA"/>
+    <rect x="20" y="24" width="4"  height="4" fill="#FFAAAA"/>
+    <rect x="24" y="24" width="20" height="4" fill="#AAAAAA"/>
+    <rect x="4"  y="28" width="40" height="4" fill="#AAAAAA"/>
+    <rect x="8"  y="32" width="32" height="4" fill="#AAAAAA"/>
+    <rect x="4"  y="36" width="40" height="8" fill="#AAAAAA"/>
+    <rect x="0"  y="44" width="48" height="4" fill="#AAAAAA"/>
+    <rect x="0"  y="48" width="8"  height="8" fill="#AAAAAA"/>
+    <rect x="16" y="48" width="16" height="8" fill="#AAAAAA"/>
+    <rect x="40" y="48" width="8"  height="8" fill="#AAAAAA"/>
+  </svg>
+</div>
+
+<script>
+  // Default date to today
+  const dateInput = document.getElementById('date');
+  const today = new Date();
+  dateInput.value = today.toISOString().split('T')[0];
+
+  // Save to localStorage
+  document.getElementById('entry-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const entry = {
+      title:    document.getElementById('title').value.trim(),
+      date:     document.getElementById('date').value,
+      one_thing:document.getElementById('one_thing').value.trim(),
+      word:     document.getElementById('word').value.trim(),
+      sections: {
+        learned:  document.getElementById('learned').value.trim(),
+        unstuck:  document.getElementById('unstuck').value.trim(),
+        question: document.getElementById('question').value.trim(),
+        word_full:document.getElementById('word_full').value.trim(),
+      }
+    };
+    const entries = JSON.parse(localStorage.getItem('journal_entries') || '[]');
+    entries.unshift(entry);
+    localStorage.setItem('journal_entries', JSON.stringify(entries));
+    window.location.href = '/';
+  });
+
+  // Cat
+  const cat = document.getElementById('cat');
+  const tip = document.getElementById('cat-tip');
+  const meows = ['meow ♡','purr...','(=^･ω･^=)','nya~','♡ ♡ ♡'];
+  let idx = 0;
+  cat.addEventListener('click', () => {
+    idx = (idx + 1) % meows.length;
+    tip.textContent = meows[idx];
+    cat.classList.remove('bounce');
+    void cat.offsetWidth;
+    cat.classList.add('bounce');
+  });
+  cat.addEventListener('animationend', () => cat.classList.remove('bounce'));
+</script>
+
+</body>
+</html>
