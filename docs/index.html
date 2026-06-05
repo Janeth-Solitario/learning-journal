@@ -97,7 +97,7 @@
         <!-- static: Day 4 with 4Js -->
         <li class="journal-entry">
           <time class="post-meta" datetime="2026-06-04">June 4, 2026</time>
-          <a class="post-title-link" href="/2026/06/04/day-4-with-4js/">Day 4 with 4Js</a>
+          <a class="post-title-link" href="2026/06/04/day-4-with-4js/">Day 4 with 4Js</a>
           <p class="post-preview">Geez, my brain is fried.</p>
           <span class="word-chip">collaboration</span>
         </li>
@@ -186,7 +186,7 @@
       li.className = 'journal-entry ls-entry';
       li.innerHTML = `
         <time class="post-meta" datetime="${entry.date}">${fmtDate(entry.date)}</time>
-        <a class="post-title-link" href="/view.html#${i}">${entry.title}</a>
+        <a class="post-title-link" href="view.html#${i}">${entry.title}</a>
         ${entry.one_thing ? `<p class="post-preview">${entry.one_thing}</p>` : ''}
         ${entry.word ? `<span class="word-chip">${entry.word}</span>` : ''}
       `;
@@ -211,7 +211,7 @@
   function tryPassword() {
     if (pwInput.value === '701310') {
       overlay.classList.remove('open');
-      window.location.href = '/new.html';
+      window.location.href = 'new.html';
     } else {
       pwError.textContent = 'Incorrect password.';
       pwInput.value = '';

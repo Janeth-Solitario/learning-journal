@@ -73,14 +73,14 @@
 
 <header class="site-header">
   <div class="wrapper">
-    <a class="site-title" href="/">My Learning Journal</a>
+    <a class="site-title" href="./">My Learning Journal</a>
     <span class="site-author">Janeth</span>
   </div>
 </header>
 
 <main class="page-content">
   <div class="wrapper">
-    <a class="back-link" href="/">← All entries</a>
+    <a class="back-link" href="./">← All entries</a>
     <h1>New Entry</h1>
     <p class="subtitle">Fill in what you can. Nothing needs to be polished.</p>
 
@@ -131,7 +131,7 @@
 
       <div class="actions">
         <button type="submit" class="save-btn">Save Entry</button>
-        <a class="cancel-link" href="/">Cancel</a>
+        <a class="cancel-link" href="./">Cancel</a>
       </div>
 
     </form>
@@ -190,7 +190,7 @@
     const entries = JSON.parse(localStorage.getItem('journal_entries') || '[]');
     entries.unshift(entry);
     localStorage.setItem('journal_entries', JSON.stringify(entries));
-    window.location.href = '/';
+    window.location.href = './';
   });
 
   // Cat
