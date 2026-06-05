@@ -167,6 +167,11 @@
 </div>
 
 <script>
+  // ── Session gate — redirect home if not authenticated ───────────────
+  if (!sessionStorage.getItem('journal_auth')) {
+    window.location.replace('./');
+  }
+
   // Default date to today
   const dateInput = document.getElementById('date');
   const today = new Date();
@@ -190,6 +195,7 @@
     const entries = JSON.parse(localStorage.getItem('journal_entries') || '[]');
     entries.unshift(entry);
     localStorage.setItem('journal_entries', JSON.stringify(entries));
+    sessionStorage.removeItem('journal_auth');
     window.location.href = './';
   });
 

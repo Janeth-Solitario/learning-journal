@@ -197,6 +197,14 @@
   renderEntries();
 
   // ── Password gate ──────────────────────────────────────────────────
+  // Password is stored as a SHA-256 hash — the real value is never in this file.
+  const PW_HASH = '171cadc426235d2aba831a4dea84f13816ddcd76a875edbb51a34fe7961cbaf2';
+
+  async function sha256(text) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
   const overlay = document.getElementById('pw-overlay');
   const pwInput = document.getElementById('pw-input');
   const pwError = document.getElementById('pw-error');
@@ -208,8 +216,10 @@
     setTimeout(() => pwInput.focus(), 50);
   });
 
-  function tryPassword() {
-    if (pwInput.value === '701310') {
+  async function tryPassword() {
+    const hash = await sha256(pwInput.value.trim());
+    if (hash === PW_HASH) {
+      sessionStorage.setItem('journal_auth', '1');
       overlay.classList.remove('open');
       window.location.href = 'new.html';
     } else {
